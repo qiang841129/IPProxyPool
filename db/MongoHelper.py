@@ -57,7 +57,12 @@ class MongoHelper(ISqlHelper):
             [("speed", pymongo.ASCENDING), ("score", pymongo.DESCENDING)])
         results = []
         for item in items:
-            result = (item['ip'], item['port'], item['score'])
+            # result = (item['ip'], item['port'], item['score'])
+            result = {
+                'protocol': 'http' if item['protocol'] == 0 else 'https',
+                'ip': item['ip'],
+                'port': item['port']
+            }
             results.append(result)
         return results
 
