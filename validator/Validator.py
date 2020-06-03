@@ -1,12 +1,12 @@
 # coding:utf-8
-import sys
+
+# from gevent import monkey
+# monkey.patch_all()
 
 import chardet
-from gevent import monkey
-monkey.patch_all()
-
 import json
 import os
+import sys
 import gevent
 import requests
 import time
@@ -89,7 +89,7 @@ def detect_proxy(selfip, proxy, queue2=None):
     ip = proxy['ip']
     port = proxy['port']
     proxies = {"http": "http://%s:%s" % (ip, port), "https": "http://%s:%s" % (ip, port)}
-    protocol, types, speed = getattr(sys.modules[__name__],config.CHECK_PROXY['function'])(selfip, proxies)#checkProxy(selfip, proxies)
+    protocol, types, speed = getattr(sys.modules[__name__], config.CHECK_PROXY['function'])(selfip, proxies)#checkProxy(selfip, proxies)
     if protocol >= 0:
         proxy['protocol'] = protocol
         proxy['types'] = types

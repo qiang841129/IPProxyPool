@@ -47,8 +47,7 @@ parserList = [
 
     },
     {
-        'urls': ['http://incloak.com/proxy-list/%s#list' % n for n in
-                 ([''] + ['?start=%s' % (64 * m) for m in range(1, 10)])],
+        'urls': ['http://incloak.com/proxy-list/%s#list' % n for n in ([''] + ['?start=%s' % (64 * m) for m in range(1, 10)])],
         'type': 'xpath',
         'pattern': ".//table[@class='proxy__t']/tbody/tr",
         'position': {'ip': './td[1]', 'port': './td[2]', 'type': '', 'protocol': ''}
@@ -61,15 +60,13 @@ parserList = [
         'position': {'ip': './td[1]', 'port': './td[2]', 'type': './td[3]', 'protocol': './td[4]'}
     },
     {
-        'urls': ['http://www.kuaidaili.com/free/%s/%s/' % (m, n) for m in ['inha', 'intr', 'outha', 'outtr'] for n in
-                 range(1, 11)],
+        'urls': ['http://www.kuaidaili.com/free/%s/%s/' % (m, n) for m in ['inha', 'intr', 'outha', 'outtr'] for n in range(1, 11)],
         'type': 'xpath',
         'pattern': ".//*[@id='list']/table/tbody/tr[position()>0]",
         'position': {'ip': './td[1]', 'port': './td[2]', 'type': './td[3]', 'protocol': './td[4]'}
     },
     {
-        'urls': ['http://www.cz88.net/proxy/%s' % m for m in
-                 ['index.shtml'] + ['http_%s.shtml' % n for n in range(2, 11)]],
+        'urls': ['http://www.cz88.net/proxy/%s' % m for m in ['index.shtml'] + ['http_%s.shtml' % n for n in range(2, 11)]],
         'type': 'xpath',
         'pattern': ".//*[@id='boxright']/div/ul/li[position()>1]",
         'position': {'ip': './div[1]', 'port': './div[2]', 'type': './div[3]', 'protocol': ''}
@@ -101,20 +98,25 @@ parserList = [
 '''
 DB_CONFIG = {
 
-    'DB_CONNECT_TYPE': 'sqlalchemy',  # 'pymongo'sqlalchemy;redis
-    # 'DB_CONNECT_STRING':'mongodb://localhost:27017/'
-    'DB_CONNECT_STRING': 'sqlite:///' + os.path.dirname(__file__) + '/data/proxy.db'
-    # DB_CONNECT_STRING : 'mysql+mysqldb://root:root@localhost/proxy?charset=utf8'
+    # 'DB_CONNECT_TYPE': 'sqlalchemy',  # 'pymongo'sqlalchemy;redis
+    # 'DB_CONNECT_STRING': 'sqlite:///' + os.path.dirname(__file__) + '/data/proxy.db'
+
+    'DB_CONNECT_TYPE': 'pymongo',  # 'pymongo'sqlalchemy;redis
+    'DB_CONNECT_STRING':'mongodb://localhost:27017/'
+
+    # 'DB_CONNECT_TYPE': 'sqlalchemy',  # 'pymongo'sqlalchemy;redis
+    # 'DB_CONNECT_STRING' : 'mysql+mysqldb://root:root@localhost/proxy?charset=utf8'
 
     # 'DB_CONNECT_TYPE': 'redis',  # 'pymongo'sqlalchemy;redis
     # 'DB_CONNECT_STRING': 'redis://localhost:6379/8',
 
 }
-CHINA_AREA = ['河北', '山东', '辽宁', '黑龙江', '吉林'
-    , '甘肃', '青海', '河南', '江苏', '湖北', '湖南',
+CHINA_AREA = ['河北', '山东', '辽宁', '黑龙江', '吉林', '甘肃',
+              '青海', '河南', '江苏', '湖北', '湖南',
               '江西', '浙江', '广东', '云南', '福建',
               '台湾', '海南', '山西', '四川', '陕西',
-              '贵州', '安徽', '重庆', '北京', '上海', '天津', '广西', '内蒙', '西藏', '新疆', '宁夏', '香港', '澳门']
+              '贵州', '安徽', '重庆', '北京', '上海',
+              '天津', '广西', '内蒙', '西藏', '新疆', '宁夏', '香港', '澳门']
 QQWRY_PATH = os.path.dirname(__file__) + "/data/qqwry.dat"
 THREADNUM = 5
 API_PORT = 8000
@@ -196,13 +198,13 @@ TEST_HTTPS_HEADER = 'https://httpbin.org/get'
 #因此在这个地方用户可以自己添加检测函数,我以百度为访问网址尝试一下
 #大家可以看一下Validator.py文件中的baidu_check函数和detect_proxy函数就会明白
 
-CHECK_PROXY={'function':'checkProxy'}#{'function':'baidu_check'}
+CHECK_PROXY={'function':'checkProxy'}  # {'function':'baidu_check'}
 
-#下面配置squid,现在还没实现
-#SQUID={'path':None,'confpath':'C:/squid/etc/squid.conf'}
+# 下面配置squid,现在还没实现
+# SQUID={'path':None,'confpath':'C:/squid/etc/squid.conf'}
 
-MAX_CHECK_PROCESS = 2 # CHECK_PROXY最大进程数
-MAX_CHECK_CONCURRENT_PER_PROCESS = 30 # CHECK_PROXY时每个进程的最大并发
-TASK_QUEUE_SIZE = 50 # 任务队列SIZE
-MAX_DOWNLOAD_CONCURRENT = 3 # 从免费代理网站下载时的最大并发 
-CHECK_WATI_TIME = 1#进程数达到上限时的等待时间
+MAX_CHECK_PROCESS = 2  # CHECK_PROXY最大进程数
+MAX_CHECK_CONCURRENT_PER_PROCESS = 30  # CHECK_PROXY时每个进程的最大并发
+TASK_QUEUE_SIZE = 50  # 任务队列SIZE
+MAX_DOWNLOAD_CONCURRENT = 3  # 从免费代理网站下载时的最大并发 
+CHECK_WATI_TIME = 1  # 进程数达到上限时的等待时间
